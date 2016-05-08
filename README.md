@@ -82,7 +82,7 @@ The Mawng dictionary example can be found at <http://www.mawngngaralk.org.au/dic
 - Instead of filling out these fields by hand, you can run the build script to automatically fill these fields.
 - This has only been tested on a Mac running OS X El Capitan 10.11.4.
 - First open a Terminal window.
-- Type in `./build.sh`.
+- Type in `./build.sh`. (Note, you may need to run `chmod +x build.sh` first if you get a permission denied error.)
 - To add a link to a main website, add a parameter to the command, e.g. `./build.sh www.myhomepage.com`.
 - Check in the `variables.php` that the four variables for the language name, index letters, language alphabet letters and categories have been filled out.
 
