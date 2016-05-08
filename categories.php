@@ -42,7 +42,7 @@
 
                     <!--toggle sidebar button-->
                     <p class="visible-xs">
-                      <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i>&nbsp;Select Category</button>
+                      <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><b>&lt;</b>&nbsp;Select Category</button>
                     </p>
 
                     <div>
