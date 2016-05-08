@@ -74,7 +74,7 @@ The Mawng dictionary example can be found at <http://www.mawngngaralk.org.au/dic
 
 - The next two steps can be done manually or by running the script, as described in the next section
     - Delete the old `index.htm` file and rename `index-new.htm` to replace it.
-    - Open the `variables.php file in the `include` folder and manually enter the language name, update the language alphabet, English letter categories and category names. Alternatively, run the build script, as described below.
+    - Open the `variables.php` file in the `include` folder and manually enter the language name, update the language alphabet, English letter categories and category names. Alternatively, run the build script, as described below.
 - Upload files to your website. Make sure that the permissions of the folder are set to 755.
 - You should see the new mobile friendly version of your Lexique Pro website :-)
 
