@@ -90,7 +90,7 @@ chmod +x build.sh
 ./build.sh
 ```
 
-- To add a link to a main website, add a parameter to the second command, e.g. `./build.sh "www.myhomepage.com"` (Note: Bash special characters must be escaped, e.g. '\/' for '/'.)
+- To add a link to a main website, add a parameter to the second command, e.g. `./build.sh www.myhomepage.com`
 - Check in the `variables.php` that the four variables for the language name, index letters, language alphabet letters and categories have been filled out.
 
 ## Notes
