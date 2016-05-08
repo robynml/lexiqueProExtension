@@ -2,6 +2,7 @@
 <html lang="en">
     <?php include 'include/variables.php'; ?>
     <?php include 'include/head.php'; ?>
+    <?php include 'include/functions.php'; ?>
 
     <body style='tab-interval:2pt'>
         <?php
@@ -52,7 +53,7 @@
                             if($y < 10){ $filename .= "0"; } 
                             $filename .= $y.".htm";
 
-                            $text = mb_convert_encoding(file_get_contents($filename), "UTF-8", mb_detect_encoding($string, "UTF-8, ISO-8859-1, ISO-8859-15", true));
+                            $text = convert_to(file_get_contents($filename), "UTF-8");
 
                             // transform links to type from 
                             // href="javascript:go('06', '1226')"

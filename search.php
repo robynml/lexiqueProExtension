@@ -2,6 +2,7 @@
 <html lang="en">
     <?php include 'include/variables.php'; ?>
     <?php include 'include/head.php'; ?>
+    <?php include 'include/functions.php'; ?>
 
     <body style='tab-interval:2pt'>
         <?php
@@ -101,7 +102,7 @@
                                                 $result[] = $headwordContents;
                                                 $headwordParent = $headwordNode->parentNode->parentNode;
                                                 $entry = $domdocument->saveHTML($headwordParent);
-                                                $text = mb_convert_encoding($entry, "UTF-8", mb_detect_encoding($string, "UTF-8, ISO-8859-1, ISO-8859-15", true));
+                                                $text = convert_to($entry, "UTF-8");
                                                 $regex = "/([0-9]+)\.htm(#e[0-9]+)/";
                                                 $newText = preg_replace($regex,"lexicon.php?letter=$1$2",$text);
                                                 echo $newText;
@@ -129,7 +130,7 @@
                                                 $result[] = $headwordContents;
                                                 $headwordParent = $headwordNode->parentNode->parentNode->parentNode;
                                                 $entry = $domdocument->saveHTML($headwordParent);
-                                                $text = mb_convert_encoding($entry, "UTF-8", mb_detect_encoding($string, "UTF-8, ISO-8859-1, ISO-8859-15", true));
+                                                $text = convert_to($entry, "UTF-8");
                                                 $regex = "/javascript:go\('([0-9]+)',(\s|%20)'([0-9]+)'\)/";
                                                 $newText = preg_replace($regex,"lexicon.php?letter=$1#e$3",$text);
                                                 echo $newText."<br>";
@@ -169,7 +170,7 @@
                                                     $result[] = $headwordContents;
                                                     $headwordParent = $headwordNode->parentNode->parentNode->parentNode;
                                                     $entry = $domdocument->saveHTML($headwordParent);
-                                                    $text = mb_convert_encoding($entry, "UTF-8", mb_detect_encoding($string, "UTF-8, ISO-8859-1, ISO-8859-15", true));
+                                                    $text = convert_to($entry, "UTF-8");
                                                     $regex = "/c([0-9]+)\.htm/";
                                                     $newText = preg_replace($regex,"categories.php?category=$1",$text);
                                                     echo $newText;
