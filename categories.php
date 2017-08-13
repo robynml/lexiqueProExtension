@@ -54,12 +54,18 @@
 
                             $text = convert_to(file_get_contents($filename), "UTF-8");
 
+                            $regexAudioPic = "/\.\.\/images/";
+                            $newAudioPicText = preg_replace($regexAudioPic,"images",$text);
+
+                            $regexAudio = "/\.\.\/audio/";
+                            $newAudioText = preg_replace($regexAudio,"audio",$newAudioPicText);
+
                             // transform links to type from 
                             // src="../pictures/bitter-tomato.jpg"
                             // to
                             // src="pictures/bitter-tomato.jpg"
                             $regexPic = "/\.\.\/pictures/";
-                            $newPicText = preg_replace($regexPic,"pictures",$text);
+                            $newPicText = preg_replace($regexPic,"pictures",$newAudioText);
 
                             // transform links to type from 
                             // href="c001.htm"
