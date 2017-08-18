@@ -16,7 +16,7 @@ It is based on a basic Bootstrap template (<http://getbootstrap.com>).
 
 It was developed as part of the Mawng website project led by Ruth Singer <http://languages-linguistics.unimelb.edu.au/about/staff/dr-ruth-singer>.
 
-The Mawng dictionary example can be found at <http://www.mawngngaralk.org.au/dictionary>.
+The Mawng dictionary example can be found at <http://www.mawngngaralk.org.au/dictionary>. Another example of this extension for the Cheyenne language can be found at <http://www.cheyennelanguage.org/dictionary/> (thanks to Wayne Leman for helping to debug the audio links).
 
 ## Instructions
 
