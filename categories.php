@@ -58,7 +58,7 @@
                             $newAudioPicText = preg_replace($regexAudioPic,"images",$text);
 
                             $regexAudio = "/\<a href\=\"\.\.\/audio\/([\s\S]*)\.mp3[\s\S]*\>/U";
-                            $replaceAudio = "<audio id=\"$1\" src=\"audio/$1.mp3\"></audio><a href=\"#\" onclick=\"document.getElementById('$1').play()\">";
+                            $replaceAudio = "<audio preload=\"none\" id=\"$1\" src=\"audio/$1.mp3\"></audio><a href=\"#\" onclick=\"document.getElementById('$1').play()\">";
                             $newAudioText = preg_replace($regexAudio,$replaceAudio,$newAudioPicText);
 
                             // transform links to type from 
