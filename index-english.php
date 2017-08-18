@@ -55,14 +55,17 @@
 
                             $text = convert_to(file_get_contents($filename), "UTF-8");
 
+                            $regex0 = "/\.\.\//";
+                            $newText0 = preg_replace($regex0,"",$text);
+
                             // transform links to type from 
                             // href="javascript:go('06', '1226')"
                             // to
                             // href="lexicon.php?letter=1#e25"
-                            $regex = "/javascript:go\('([0-9]+)',\s'([0-9]+)'\)/";
-                            $newText = preg_replace($regex,"lexicon.php?letter=$1#e$2",$text);
+                            $regex1 = "/javascript:go\('([0-9]+)',\s'([0-9]+)'\)/";
+                            $newText1 = preg_replace($regex1,"lexicon.php?letter=$1#e$2",$newText0);
 
-                            echo $newText;
+                            echo $newText1;
                         ?> 
                     </div>
             

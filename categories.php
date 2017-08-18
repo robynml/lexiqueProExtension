@@ -54,30 +54,23 @@
 
                             $text = convert_to(file_get_contents($filename), "UTF-8");
 
-                            $regexAudioPic = "/\.\.\/images/";
-                            $newAudioPicText = preg_replace($regexAudioPic,"images",$text);
+                            $regex0 = "/\.\.\//";
+                            $newText0 = preg_replace($regex0,"",$text);
 
-                            $regexAudio = "/\<a href\=\"\.\.\/audio\/([\s\S]*)\.mp3[\s\S]*\>/U";
-                            $replaceAudio = "<audio preload=\"none\" id=\"$1\" src=\"audio/$1.mp3\"></audio><a href=\"#\" onclick=\"document.getElementById('$1').play()\">";
-                            $newAudioText = preg_replace($regexAudio,$replaceAudio,$newAudioPicText);
-
-                            // transform links to type from 
-                            // src="../pictures/bitter-tomato.jpg"
-                            // to
-                            // src="pictures/bitter-tomato.jpg"
-                            $regexPic = "/\.\.\/pictures/";
-                            $newPicText = preg_replace($regexPic,"pictures",$newAudioText);
+                            $regexAudio = "/\<a href\=\"audio\/([\s\S]*)\.mp3[\s\S]*\>/U";
+                            $replaceAudio = "<audio preload=\"none\" id=\"$1\" src=\"audio/$1.mp3\"></audio><a href=\"#\" onclick=\"document.getElementById('$1').play(); return false\">";
+                            $newAudioText = preg_replace($regexAudio,$replaceAudio,$newText0);
 
                             // transform links to type from 
                             // href="c001.htm"
                             // to
                             // href="categories.php?category=001"
-                            $regex = "/c([0-9]+)\.htm/";
-                            $newText = preg_replace($regex,"categories.php?category=$1",$newPicText);
+                            $regex1 = "/c([0-9]+)\.htm/";
+                            $newText1 = preg_replace($regex1,"categories.php?category=$1",$newAudioText);
 
                             // href="../lexicon/22.htm#e3129"
-                            $regex2 = "/\.\.\/lexicon\/([0-9]+)\.htm(#e[0-9]+)/";
-                            $newText2 = preg_replace($regex2,"lexicon.php?letter=$1$2",$newText);
+                            $regex2 = "/lexicon\/([0-9]+)\.htm(#e[0-9]+)/";
+                            $newText2 = preg_replace($regex2,"lexicon.php?letter=$1$2",$newText1);
 
                             echo $newText2;
                         ?> 

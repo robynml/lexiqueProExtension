@@ -62,32 +62,25 @@
 
                             $text = convert_to(file_get_contents($filename), "UTF-8");
 
-                            $regexAudioPic = "/\.\.\/images/";
-                            $newAudioPicText = preg_replace($regexAudioPic,"images",$text);
+                            $regex0 = "/\.\.\//";
+                            $newText0 = preg_replace($regex0,"",$text);
 
-                            $regexAudio = "/\<a href\=\"\.\.\/audio\/([\s\S]*)\.mp3[\s\S]*\>/U";
-                            $replaceAudio = "<audio preload=\"none\" id=\"$1\" src=\"audio/$1.mp3\"></audio><a href=\"#\" onclick=\"document.getElementById('$1').play()\">";
-                            $newAudioText = preg_replace($regexAudio,$replaceAudio,$newAudioPicText);
-
-                            // transform links to type from 
-                            // src="../pictures/bitter-tomato.jpg"
-                            // to
-                            // src="pictures/bitter-tomato.jpg"
-                            $regexPic = "/\.\.\/pictures/";
-                            $newPicText = preg_replace($regexPic,"pictures",$newAudioText);
+                            $regexAudio = "/\<a href\=\"audio\/([\s\S]*)\.mp3[\s\S]*\>/U";
+                            $replaceAudio = "<audio preload=\"none\" id=\"$1\" src=\"audio/$1.mp3\"></audio><a href=\"#\" onclick=\"document.getElementById('$1').play(); return false\">";
+                            $newAudioText = preg_replace($regexAudio,$replaceAudio,$newText0);
 
                             // transform links to type from 
                             // href="09.htm#e1668"
                             // to
                             // href="lexicon.php?letter=1#e25"
-                            $regex = "/([0-9]+)\.htm(#e[0-9]+)/";
-                            $newText = preg_replace($regex,"lexicon.php?letter=$1$2",$newPicText);
+                            $regex1 = "/([0-9]+)\.htm(#e[0-9]+)/";
+                            $newText1 = preg_replace($regex1,"lexicon.php?letter=$1$2",$newAudioText);
 
                             // add extra span to push text down so that selected word is immediately visible
-                            $regexNew = "/<p class=\"lpLexEntryPara\">/";
-                            $newNewText = preg_replace($regexNew,"<p class=\"lpLexEntryPara\"><span class=\"lpLexEntryNameNew\"></span>",$newText);
+                            $regex2 = "/<p class=\"lpLexEntryPara\">/";
+                            $newText2 = preg_replace($regex2,"<p class=\"lpLexEntryPara\"><span class=\"lpLexEntryNameNew\"></span>",$newText1);
 
-                            echo $newNewText;
+                            echo $newText2;
                         ?> 
                     </div>
                 </div><!--/col-sm-9 col-md-10 main-->
