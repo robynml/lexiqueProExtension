@@ -19,6 +19,7 @@
  
             $navPage = $search;
             include("include/nav.php"); 
+            echo "<script>console.log('PHP navPage (start body): ".$navPage."');</script>";
         ?>
 
         <div class="container-fluid">
@@ -46,6 +47,7 @@
                             } 
                             echo "><a href='search.php?search=category&amp;input=none'>";
                             echo "Search Categories</a></li>";
+                            echo "<script>console.log('PHP sidebar');</script>";
                         ?>
                     </ul>            
                 </div><!--/col-sm-3 col-md-2 sidebar-offcanvas-->
@@ -77,15 +79,19 @@
                                 echo "<input type=\"text\" class=\"form-control\" id='searchText' name='searchText' placeholder=\"Search...\">";
                                 echo "<button type=\"submit\" value=\"Submit\" class=\"btn btn-primary btn-md\">Search&nbsp;<b>&gt;</b></button>";
                                 echo "</form>";
-
+                                echo "<script>console.log('PHP no input');</script>";
                             } else {
                                 $found = false;
+                                echo "<script>console.log('PHP searchType: ".$searchType."');</script>";
+                                echo "<script>console.log('PHP input: ".$input."');</script>";
+                                echo "<script>console.log('PHP searchText: ".$searchText."');</script>";
+                                echo "<script>console.log('PHP language: ".$language."');</script>";
 
                                 if($searchType == "lexicon"){
                                     echo "<p>The search for <strong>".$searchText."</strong> within ".$language." lexicon headwords yielded the following results:</p><hr>";
                                     $dir = 'lexicon';
                                     foreach (glob("$dir/*") as $file) {
-
+                                        echo "<script>console.log('PHP file: ".$file."');</script>";
                                         $classname = "lpLexEntryName";
                                         $domdocument = new DomDocument("1.0", "utf-8");
                                         $domdocument->loadHTMLFile($file);
@@ -103,13 +109,23 @@
                                                 $headwordParent = $headwordNode->parentNode->parentNode;
                                                 $entry = $domdocument->saveHTML($headwordParent);
                                                 $text = convert_to($entry, "UTF-8");
-                                                $regex = "/([0-9]+)\.htm(#e[0-9]+)/";
-                                                $newText = preg_replace($regex,"lexicon.php?letter=$1$2",$text);
-                                                echo $newText;
+
+                                                $regex0 = "/\.\.\//";
+                                                $newText0 = preg_replace($regex0,"",$text);
+
+                                                $regex1 = "/([0-9]+)\.htm(#e[0-9]+)/";
+                                                $newText1 = preg_replace($regex1,"lexicon.php?letter=$1$2",$newText0);
+
+                                                $regexAudio = "/\<a href\=\"audio\/([\s\S]*)\.mp3[\s\S]*\>/U";
+                                                $replaceAudio = "<audio preload=\"none\" id=\"$1\" src=\"audio/$1.mp3\"></audio><a href=\"#\" onclick=\"document.getElementById('$1').play(); return false\">";
+                                                $newAudioText = preg_replace($regexAudio,$replaceAudio,$newText1);
+
+                                                echo $newAudioText;
                                             }
                                         }
                                     }
                                 } else if($searchType == "english"){
+                                    echo "<script>console.log('PHP english');</script>";
                                     echo "<p>The search for <strong>".$searchText."</strong> within the ".$indexLanguage." finder list yielded the following results:</p><hr>";
                                     $dir = 'index-english';
                                     foreach (glob("$dir/*") as $file) {
@@ -138,6 +154,7 @@
                                         }
                                     }
                                 } else if($searchType == "category"){
+                                    echo "<script>console.log('PHP category');</script>";
                                     echo "<p>The search for <strong>".$searchText."</strong> within category and sub-category names yielded the following results:</p><hr>";                    
 
                                     reset($categoryNames);
@@ -182,6 +199,7 @@
 
                                 if(!$found){
                                     echo "<p>The item searched for was not found.</p>";
+                                    echo "<script>console.log('PHP not found');</script>";
                                 }
                             } 
                         ?>
