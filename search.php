@@ -88,26 +88,23 @@
                                 echo "<script>console.log('PHP language: ".$language."');</script>";
 
                                 if($searchType == "lexicon"){
+                                    echo "<script>console.log('PHP search lexicon');</script>";
                                     echo "<p>The search for <strong>".$searchText."</strong> within ".$language." lexicon headwords yielded the following results:</p><hr>";
                                     $dir = 'lexicon';
                                     foreach (glob("$dir/*") as $file) {
                                         echo "<script>console.log('PHP file: ".$file."');</script>";
-                                        $classname = "lpLexEntryName";
                                         $domdocument = new DomDocument("1.0", "utf-8");
+                                        $domdocument->preserveWhiteSpace = false;
                                         $domdocument->loadHTMLFile($file);
-                                        header("Content-Type: text/html; charset=utf-8");
-                                        $a = new DOMXPath($domdocument);
-                                        $spans = $a->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $classname ')]");
+                                        $xpath = new DOMXPath($domdocument);
+                                        $lpLexEntryNameSpans = $xpath->query("//html/body/p/span[@class='lpLexEntryName']");
+                                        echo "<script>console.log('PHP paragraphs found: ".$paragraphs->length."');</script>";
 
-                                        for ($i = 0; $i < $spans->length; $i++) {
-                                            $headwordNode = $spans->item($i)->firstChild;
-                                            $headwordContents = $headwordNode->nodeValue;
-
-                                            if (strpos(strtolower($headwordContents), strtolower($searchText) ) !== false) {
+                                        foreach ($lpLexEntryNameSpans as $lpLexEntryNameSpan) {
+                                            if (strpos(strtolower($lpLexEntryNameSpan->nodeValue), strtolower($searchText) ) !== false) {
                                                 $found = true;
-                                                $result[] = $headwordContents;
-                                                $headwordParent = $headwordNode->parentNode->parentNode;
-                                                $entry = $domdocument->saveHTML($headwordParent);
+                                                $paragraph = $lpLexEntryNameSpan->parentNode;
+                                                $entry = $domdocument->saveHTML($paragraph);
                                                 $text = convert_to($entry, "UTF-8");
 
                                                 $regex0 = "/\.\.\//";

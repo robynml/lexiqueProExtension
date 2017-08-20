@@ -72,7 +72,27 @@
                             $regex2 = "/lexicon\/([0-9]+)\.htm(#e[0-9]+)/";
                             $newText2 = preg_replace($regex2,"lexicon.php?letter=$1$2",$newText1);
 
-                            echo $newText2;
+
+                            $domdocument = new DomDocument("1.0", "utf-8");
+                            $domdocument->preserveWhiteSpace = false;
+                            $domdocument->loadXML($newText2);
+                            // $xpath = new DOMXPath($domdocument);
+                            // $body = $xpath->query("//html/body");
+
+                            $body = $domdocument->getElementsByTagName('html') 
+                                    ->item(0)
+                                    ->getElementsByTagName('body')
+                                    ->item(0);
+                            
+                            if($body->hasChildNodes()){
+                                $children = $body->childNodes;
+                                foreach($children as $child) {
+                                    $entry = $domdocument->saveHTML($child);
+                                    $paragraphText = convert_to($entry, "UTF-8");
+                                    echo $paragraphText;
+                                }
+                            }
+                            // echo $newText2;
                         ?> 
                     </div>
                 </div><!--/col-sm-9 col-md-10 main-->
