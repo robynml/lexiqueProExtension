@@ -81,36 +81,25 @@
                             $regex2 = "/<p class=\"lpLexEntryPara\">/";
                             $newText2 = preg_replace($regex2,"<p class=\"lpLexEntryPara\"><span class=\"lpLexEntryNameNew\"></span>",$newText1);
 
-                            $domdocument = new DomDocument("1.0", "utf-8");
-                            $domdocument->preserveWhiteSpace = false;
-                            $domdocument->loadXML($newText2);
-                            // $xpath = new DOMXPath($domdocument);
-                            // $body = $xpath->query("//html/body");
-
-                            $body = $domdocument->getElementsByTagName('html') 
-                                    ->item(0)
-                                    ->getElementsByTagName('body')
-                                    ->item(0);
-                            
-                            if($body->hasChildNodes()){
-                                $children = $body->childNodes;
-                                foreach($children as $child) {
-                                    $entry = $domdocument->saveHTML($child);
-                                    $paragraphText = convert_to($entry, "UTF-8");
-                                    echo $paragraphText;
-                                }
-                            }
+                            // use this section to get valid HTML, but may be slower
                             // $domdocument = new DomDocument("1.0", "utf-8");
                             // $domdocument->preserveWhiteSpace = false;
                             // $domdocument->loadXML($newText2);
-                            // $xpath = new DOMXPath($domdocument);
-                            // $paragraphs = $xpath->query("//html/body/p");
 
-                            // foreach ($paragraphs as $paragraph) {
-                            //     $entry = $domdocument->saveHTML($paragraph);
-                            //     $paragraphText = convert_to($entry, "UTF-8");
-                            //     echo $paragraphText;
+                            // $body = $domdocument->getElementsByTagName('html') 
+                            //         ->item(0)
+                            //         ->getElementsByTagName('body')
+                            //         ->item(0);
+                            
+                            // if($body->hasChildNodes()){
+                            //     $children = $body->childNodes;
+                            //     foreach($children as $child) {
+                            //         $entry = $domdocument->saveHTML($child);
+                            //         $paragraphText = convert_to($entry, "UTF-8");
+                            //         echo $paragraphText;
+                            //     }
                             // }
+                            echo $newText2;
                         ?> 
                     </div>
                 </div><!--/col-sm-9 col-md-10 main-->

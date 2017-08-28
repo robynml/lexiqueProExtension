@@ -65,27 +65,26 @@
                             $regex1 = "/javascript:go\('([0-9]+)',\s'([0-9]+)'\)/";
                             $newText1 = preg_replace($regex1,"lexicon.php?letter=$1#e$2",$newText0);
 
+                            // use this section to get valid HTML, but may be slower
                             // only echo body contents
-                            $domdocument = new DomDocument("1.0", "utf-8");
-                            $domdocument->preserveWhiteSpace = false;
-                            $domdocument->loadXML($newText1);
-                            // $xpath = new DOMXPath($domdocument);
-                            // $body = $xpath->query("//html/body");
+                            // $domdocument = new DomDocument("1.0", "utf-8");
+                            // $domdocument->preserveWhiteSpace = false;
+                            // $domdocument->loadXML($newText1);
 
-                            $body = $domdocument->getElementsByTagName('html') 
-                                    ->item(0)
-                                    ->getElementsByTagName('body')
-                                    ->item(0);
+                            // $body = $domdocument->getElementsByTagName('html') 
+                            //         ->item(0)
+                            //         ->getElementsByTagName('body')
+                            //         ->item(0);
                             
-                            if($body->hasChildNodes()){
-                                $children = $body->childNodes;
-                                foreach($children as $child) {
-                                    $entry = $domdocument->saveHTML($child);
-                                    $paragraphText = convert_to($entry, "UTF-8");
-                                    echo $paragraphText;
-                                }
-                            }
-                            // echo $newText1;
+                            // if($body->hasChildNodes()){
+                            //     $children = $body->childNodes;
+                            //     foreach($children as $child) {
+                            //         $entry = $domdocument->saveHTML($child);
+                            //         $paragraphText = convert_to($entry, "UTF-8");
+                            //         echo $paragraphText;
+                            //     }
+                            // }
+                            echo $newText1;
                         ?> 
                     </div>
             
