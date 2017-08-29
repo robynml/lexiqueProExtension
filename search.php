@@ -91,14 +91,14 @@
                                     echo "<script>console.log('PHP search lexicon');</script>";
                                     echo "<p>The search for <strong>".$searchText."</strong> within ".$language." lexicon headwords yielded the following results:</p><hr>";
                                     $dir = 'lexicon';
-                                    foreach (glob("$dir/*") as $file) {
+                                    foreach (glob("$dir/*.htm") as $file) {
+
                                         echo "<script>console.log('PHP file: ".$file."');</script>";
                                         $domdocument = new DomDocument("1.0", "utf-8");
                                         $domdocument->preserveWhiteSpace = false;
                                         $domdocument->loadHTMLFile($file);
                                         $xpath = new DOMXPath($domdocument);
                                         $lpLexEntryNameSpans = $xpath->query("//html/body/p/span[@class='lpLexEntryName']");
-                                        echo "<script>console.log('PHP paragraphs found: ".$paragraphs->length."');</script>";
 
                                         foreach ($lpLexEntryNameSpans as $lpLexEntryNameSpan) {
                                             if (strpos(strtolower($lpLexEntryNameSpan->nodeValue), strtolower($searchText) ) !== false) {
@@ -125,7 +125,7 @@
                                     echo "<script>console.log('PHP english');</script>";
                                     echo "<p>The search for <strong>".$searchText."</strong> within the ".$indexLanguage." finder list yielded the following results:</p><hr>";
                                     $dir = 'index-english';
-                                    foreach (glob("$dir/*") as $file) {
+                                    foreach (glob("$dir/*.htm") as $file) {
 
                                         $classname = "lpIndex".$indexLanguage;
                                         $domdocument = new DomDocument("1.0", "utf-8");
@@ -163,7 +163,7 @@
 
                                         // get text for relevant category
                                         $filename = "categories/c".$key.".htm";
-                                        
+                                        echo "<script>console.log('PHP file: ".$filename."');</script>";
                                         $classname = "lpCategory";
                                         $domdocument = new DomDocument("1.0", "utf-8");
                                         $domdocument->loadHTMLFile($filename);
