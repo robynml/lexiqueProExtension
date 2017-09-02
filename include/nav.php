@@ -22,7 +22,7 @@
                     }
                     $class = " class=\"active\"";
 
-                    for ($x = 0; $x <= sizeof($pages); $x++) {
+                    for ($x = 0; $x < sizeof($pages); $x++) {
                         echo "<li";
                         if($navPage == $pages[$x]){
                             echo $class;    

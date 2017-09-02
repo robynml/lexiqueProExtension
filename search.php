@@ -6,7 +6,10 @@
 
     <body style='tab-interval:2pt'>
         <?php
-            $searchText = $_POST["searchText"];
+            if(isset($_POST["searchText"])){
+                $searchText = $_POST["searchText"];
+            }
+
             if(isset($_GET["search"])){
                 $searchType = $_GET["search"];
             } else {
@@ -20,6 +23,8 @@
             $navPage = $search;
             include("include/nav.php"); 
             echo "<script>console.log('PHP navPage (start body): ".$navPage."');</script>";
+            $version = phpversion();
+            echo "<script>console.log('PHP version ".$version."');</script>";
         ?>
 
         <div class="container-fluid">
@@ -61,15 +66,17 @@
                     <div>
                         <?php
                             // if no search input yet given, go to relevant search box
-                            if($input == "none" || $searchType == "none"){
+                            if((isset($input) && $input == "none") || $searchType == "none"){
+
                                 $url = "search.php?search=";
-                                if($searchType=="lexicon" || $searchType =="none"){
+
+                                if($searchType == "lexicon" || $searchType == "none"){
                                     $searchName = $language." lexicon";
                                     $url .= "lexicon";
-                                } else if($searchType=="english"){
+                                } else if($searchType == "english"){
                                     $searchName = $indexLanguage."-".$language." index";
                                     $url .= $searchType;
-                                } else if($searchType=="category"){
+                                } else if($searchType == "category"){
                                     $searchName = "categories";
                                     $url .= $searchType;
                                 } 
@@ -80,19 +87,29 @@
                                 echo "<button type=\"submit\" value=\"Submit\" class=\"btn btn-primary btn-md\">Search&nbsp;<b>&gt;</b></button>";
                                 echo "</form>";
                                 echo "<script>console.log('PHP no input');</script>";
+
                             } else {
+
                                 $found = false;
+
                                 echo "<script>console.log('PHP searchType: ".$searchType."');</script>";
-                                echo "<script>console.log('PHP input: ".$input."');</script>";
+
+                                if(isset($input) && ($input != "none")){
+                                   echo "<script>console.log('PHP input: ".$input."');</script>";
+                                }
+
                                 echo "<script>console.log('PHP searchText: ".$searchText."');</script>";
                                 echo "<script>console.log('PHP language: ".$language."');</script>";
 
                                 if($searchType == "lexicon"){
+
                                     echo "<script>console.log('PHP search lexicon');</script>";
                                     echo "<p>The search for <strong>".$searchText."</strong> within ".$language." lexicon headwords yielded the following results:</p><hr>";
-                                    $dir = 'lexicon';
-                                    foreach (glob("$dir/*.htm") as $file) {
 
+                                    $dir = 'lexicon';
+
+                                    foreach (glob("$dir/*.htm") as $file) {
+                                        libxml_use_internal_errors(true);
                                         echo "<script>console.log('PHP file: ".$file."');</script>";
                                         $domdocument = new DomDocument("1.0", "utf-8");
                                         $domdocument->preserveWhiteSpace = false;
@@ -102,6 +119,7 @@
 
                                         foreach ($lpLexEntryNameSpans as $lpLexEntryNameSpan) {
                                             if (strpos(strtolower($lpLexEntryNameSpan->nodeValue), strtolower($searchText) ) !== false) {
+
                                                 $found = true;
                                                 $paragraph = $lpLexEntryNameSpan->parentNode;
                                                 $entry = $domdocument->saveHTML($paragraph);
