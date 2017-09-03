@@ -55,8 +55,6 @@ The Mawng dictionary example can be found at <http://www.mawngngaralk.org.au/dic
 +-- build.sh
 +-- categories.php
 +-- include
-|   +-- boostrap.min.css
-|   +-- bootstrap.min.js
 |   +-- functions.php
 |   +-- head.php
 |   +-- nav.php
