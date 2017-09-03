@@ -7,7 +7,9 @@
     <body style='tab-interval:2pt'>
         <?php
             $arrlength = count($lettersIndex);
-            $letter = ltrim($_GET["letter"],'0');
+            if(isset($_GET["letter"])){
+                $letter = ltrim($_GET["letter"],'0');
+            }
             $navPage = $finder;
             include("include/nav.php"); 
         ?>

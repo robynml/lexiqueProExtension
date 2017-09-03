@@ -6,6 +6,8 @@
 
     <body style='tab-interval:2pt'>
         <?php
+            libxml_use_internal_errors(true); // turn off xml errors
+
             if(isset($_POST["searchText"])){
                 $searchText = $_POST["searchText"];
             }
@@ -109,7 +111,6 @@
                                     $dir = 'lexicon';
 
                                     foreach (glob("$dir/*.htm") as $file) {
-                                        libxml_use_internal_errors(true);
                                         echo "<script>console.log('PHP file: ".$file."');</script>";
                                         $domdocument = new DomDocument("1.0", "utf-8");
                                         $domdocument->preserveWhiteSpace = false;
@@ -118,7 +119,7 @@
                                         $lpLexEntryNameSpans = $xpath->query("//html/body/p/span[@class='lpLexEntryName']");
 
                                         foreach ($lpLexEntryNameSpans as $lpLexEntryNameSpan) {
-                                            if (strpos(strtolower($lpLexEntryNameSpan->nodeValue), strtolower($searchText) ) !== false) {
+                                            if (strpos(removeAccents($lpLexEntryNameSpan->nodeValue), removeAccents($searchText) ) !== false) {
 
                                                 $found = true;
                                                 $paragraph = $lpLexEntryNameSpan->parentNode;
@@ -148,7 +149,7 @@
                                         $classname = "lpIndex".$indexLanguage;
                                         $domdocument = new DomDocument("1.0", "utf-8");
                                         $domdocument->loadHTMLFile($file);
-                                        header("Content-Type: text/html; charset=utf-8");
+                                        // header("Content-Type: text/html; charset=utf-8");
                                         $a = new DOMXPath($domdocument);
                                         $spans = $a->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $classname ')]");
 
@@ -185,7 +186,7 @@
                                         $classname = "lpCategory";
                                         $domdocument = new DomDocument("1.0", "utf-8");
                                         $domdocument->loadHTMLFile($filename);
-                                        header("Content-Type: text/html; charset=utf-8");
+                                        // header("Content-Type: text/html; charset=utf-8");
                                         $a = new DOMXPath($domdocument);
                                         $spans = $a->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $classname ')]");
 

@@ -52,7 +52,7 @@
                         <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><b>&lt;</b>&nbsp;Select Letter</button>
                     </p>
         
-                    <div>
+                    <div class="container-fluid">
                         <!--dictionary entry paragraphs-->
                         <?php
                             // get text for relevant letter
@@ -81,6 +81,10 @@
                             $regex2 = "/<p class=\"lpLexEntryPara\">/";
                             $newText2 = preg_replace($regex2,"<p class=\"lpLexEntryPara\"><span class=\"lpLexEntryNameNew\"></span>",$newText1);
 
+                            // make images responsive
+                            $regex3 = "/width=\"[0-9]+\" height=\"[0-9]+\"/";
+                            $newText3 = preg_replace($regex3,"class=\"img-responsive\"",$newText2);
+
                             // use this section to get valid HTML, but may be slower
                             // $domdocument = new DomDocument("1.0", "utf-8");
                             // $domdocument->preserveWhiteSpace = false;
@@ -99,7 +103,7 @@
                             //         echo $paragraphText;
                             //     }
                             // }
-                            echo $newText2;
+                            echo $newText3;
                         ?> 
                     </div>
                 </div><!--/col-sm-9 col-md-10 main-->

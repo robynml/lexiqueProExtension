@@ -1,7 +1,6 @@
 <?php
 // From http://php.net/manual/de/function.mb-convert-encoding.php
-function convert_to ( $source, $target_encoding )
-    {
+function convert_to ( $source, $target_encoding ) {
     // detect the character encoding of the incoming file
     $encoding = mb_detect_encoding( $source, "auto" );
        
@@ -19,5 +18,9 @@ function convert_to ( $source, $target_encoding )
     $target = str_replace( "[question_mark]", "?", $target );
    
     return $target;
-    }
+}
+
+function removeAccents($string) {
+    return strtolower(trim(preg_replace('~[^0-9a-z]+~i', '-', preg_replace('~&([a-z]{1,2})(acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities($string, ENT_QUOTES, 'UTF-8'))), ' '));
+}
 ?>

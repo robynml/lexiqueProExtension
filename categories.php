@@ -7,8 +7,10 @@
 
     <body style='tab-interval:2pt'>
         <?php
-            $originalCategory = $_GET["category"];
-            $category = $_GET["category"];
+            if(isset($_GET["category"])){
+                $originalCategory = $_GET["category"];
+                $category = $_GET["category"];
+            }
             $navPage=$categories;
             include("include/nav.php"); 
         ?>
@@ -28,7 +30,7 @@
                                 $category = $keys[0];
                             }
 
-                            for ($i = 0; $i <= sizeof($categoryNames); $i++) {
+                            for ($i = 0; $i < sizeof($categoryNames); $i++) {
                                 echo "<li";
                                 if($category >= $keys[$i] && $category < $keys[$i + 1]){
                                     echo $active;
@@ -72,6 +74,10 @@
                             $regex2 = "/lexicon\/([0-9]+)\.htm(#e[0-9]+)/";
                             $newText2 = preg_replace($regex2,"lexicon.php?letter=$1$2",$newText1);
 
+                            // make images responsive
+                            $regex3 = "/width=\"[0-9]+\" height=\"[0-9]+\"/";
+                            $newText3 = preg_replace($regex3,"class=\"img-responsive\"",$newText2);                            
+
                             // use this section to get valid HTML, but may be slower
                             // $domdocument = new DomDocument("1.0", "utf-8");
                             // $domdocument->preserveWhiteSpace = false;
@@ -90,7 +96,7 @@
                             //         echo $paragraphText;
                             //     }
                             // }
-                            echo $newText2;
+                            echo $newText3;
                         ?> 
                     </div>
                 </div><!--/col-sm-9 col-md-10 main-->
