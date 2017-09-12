@@ -82,8 +82,10 @@
                             $newText2 = preg_replace($regex2,"<p class=\"lpLexEntryPara\"><span class=\"lpLexEntryNameNew\"></span>",$newText1);
 
                             // make images responsive
-                            $regex3 = "/width=\"[0-9]+\" height=\"[0-9]+\"/";
-                            $newText3 = preg_replace($regex3,"class=\"img-responsive\"",$newText2);
+                            // $regex3 = "/width=\"[0-9]+\" height=\"[0-9]+\"/";
+                            // $newText3 = preg_replace($regex3,"class=\"img-responsive\"",$newText2);
+                            $regex3 = "/<p class=\"lpPicturePara.*(pictures.*jpg).*p>/U"; 
+                            $newText3 = preg_replace($regex3,"<p><img src=\"$1\" class=\"img-responsive\"/></p>",$newText2);
 
                             // use this section to get valid HTML, but may be slower
                             // $domdocument = new DomDocument("1.0", "utf-8");
