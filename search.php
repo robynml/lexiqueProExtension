@@ -119,7 +119,11 @@
                                         $lpLexEntryNameSpans = $xpath->query("//html/body/p/span[@class='lpLexEntryName']");
 
                                         foreach ($lpLexEntryNameSpans as $lpLexEntryNameSpan) {
-                                            if (strpos(removeAccents($lpLexEntryNameSpan->nodeValue), removeAccents($searchText) ) !== false) {
+                                            // finds whole matching words only
+                                            if (removeAccents($lpLexEntryNameSpan->nodeValue) == removeAccents($searchText)) {
+
+                                            // finds part words
+                                            // if (strpos(removeAccents($lpLexEntryNameSpan->nodeValue), removeAccents($searchText) ) !== false) {
 
                                                 $found = true;
                                                 $paragraph = $lpLexEntryNameSpan->parentNode;
